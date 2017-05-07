@@ -54,20 +54,41 @@ class RuleSet
         return true;
     }
 
+    /**
+     * Get set of unique dependencies
+     *
+     * @return array
+     */
     public function getDependenciesSet()
     {
         $dependencies  = $this->getDependencies($this->resource);
         $dependencySet = [];
-        print_r($dependencies);
+        $aux           = [];
         foreach ($dependencies as $i => $dep) {
-            echo'<br>';print_r($dep);
-            for ($x = 0; $x < count($dependencies); $x++) {
+            $arAux = [key($dep), $dep[key($dep)]];
+
+            for ($x = $i; $x < count($dependencies); $x++) {
                 if ($x == $i) {
                     continue;
                 }
-                echo '<br> i: '.$i.' - x: '.$x.' - '.$dependencies[$i];
+                if (!empty(count(array_intersect($arAux,
+                        [key($dependencies[$x]), $dependencies[$x][key($dependencies[$x])]])))) {
+                    array_push($dependencySet, key($dep), $dep[key($dep)],
+                        key($dependencies[$x]), $dependencies[$x][key($dependencies[$x])]);
+                    continue;
+                }
+                array_push($aux, key($dep), $dep[key($dep)],
+                    key($dependencies[$x]), $dependencies[$x][key($dependencies[$x])]);
+
+/*                echo '<br> i: '.$i.' - x: '.$x.' - '
+                    .key($dep).','.$dep[key($dep)].
+                    ' - '.key($dependencies[$x]).','.$dependencies[$x][key($dependencies[$x])];*/
             }
         }
+        $result = [];
+        $dependencySet  = array_unique($dependencySet);
+        array_push($result, array_diff(array_unique($aux), $dependencySet), $dependencySet);
+        return $result;
     }
 
     /**
