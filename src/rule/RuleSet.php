@@ -11,8 +11,6 @@ class RuleSet
         $this->resource = [];
     }
 
-
-
     public function addDep(string $optA, string $optB)
     {
         array_push($this->resource, [$optA => $optB]);
@@ -25,8 +23,10 @@ class RuleSet
 
     public function isCoherent()
     {
-        if (!$this->checkCoherentConflictsPreCondition()) {
-            return false;
+        $conflicts = $this->getConflicts();
+
+        if ($conflicts === true) {
+            return true;
         }
 
         foreach ($this->resource as $structure) {
@@ -34,7 +34,23 @@ class RuleSet
         }
     }
 
-    public function checkCoherentConflictsPreCondition()
+    public function checkCoherence($dependencies = [], $conflicts = [])
+    {
+        $b = [['A', 'B', 'C'], ['D', 'E']];
+
+        foreach ($dependencies as $d) {
+            if (!empty(array_intersect($conflicts, $d))) {
+                echo "Encontrado<br><br>";
+            }
+        }
+    }
+
+    /**
+     * Check if exists conflicts in the existent data
+     *  and return them in case of true
+     * @return bool
+     */
+    public function getConflicts()
     {
         $aux = [];
         foreach ($this->resource as $structure) {
@@ -44,10 +60,10 @@ class RuleSet
         }
 
         if (empty($aux)) {
-            return false;
+            return true;
         }
 
-        return true;
+        return $aux;
     }
 
     /**

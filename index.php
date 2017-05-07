@@ -8,17 +8,22 @@ require 'vendor/autoload.php';
 use App\rule\RuleSet;
 
 $s = new RuleSet();
+/*
 $s->addDep('A', 'B');
-$s->addDep('B', 'C');
-$s->addConflict('C', 'D'); // OK
+$s->addConflict('A', 'B');
 echo '<br> Rule Set 1: ';
-$s->isCoherent();
+$s->isCoherent();*/
 
-$z = new RuleSet();
-$z->addDep('A', 'B');
-$z->addDep('B', 'C');
-//$z->addConflict('A', 'C'); // not coherent
-echo '<br><br><br> Rule Set 2: ';
-$z->isCoherent();
+$b = [['A', 'B', 'C']];
 
+$conflicts = [['B', 'D'], ['B', 'E']];
+foreach ($b as $dependencyConjunct) {
+    foreach ($conflicts as $conflictsConjuncts) {
+        if (count(array_intersect($conflictsConjuncts, $dependencyConjunct)) == 2) {
+            die('incoerente');
+        } else {
+            echo "<br>Coerente<br>";
+        }
+    }
+}
 //echo '<pre>';print_r($s->__get('resource'));
