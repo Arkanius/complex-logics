@@ -8,16 +8,18 @@ require 'vendor/autoload.php';
 use App\rule\RuleSet;
 
 $s = new RuleSet();
-/*
+
 $s->addDep('A', 'B');
-$s->addConflict('A', 'B');
-echo '<br> Rule Set 1: ';
-$s->isCoherent();*/
+$s->addDep('B', 'C');
+$s->addDep('C', 'D');
+$s->addDep('D', 'E');
+$s->addDep('A', 'F');
+$s->addConflict('A', 'C');
+//$s->isCoherent();
 
-$b = [['A', 'B']];
 
+echo '<pre>';print_r($s->getDependenciesSet());
+
+/*$b = [['A', 'B']];
 $conflicts = [['A', 'B']];
-
-echo $s->checkCoherence($b, $conflicts) === true ? 'Coerente' : 'Incoerente';
-
-//echo '<pre>';print_r($s->__get('resource'));
+echo $s->checkCoherence($b, $conflicts) === true ? 'Coerente' : 'Incoerente';*/

@@ -54,6 +54,39 @@ class RuleSet
         return true;
     }
 
+    public function getDependenciesSet()
+    {
+        $dependencies  = $this->getDependencies($this->resource);
+        $dependencySet = [];
+        print_r($dependencies);
+        foreach ($dependencies as $i => $dep) {
+            echo'<br>';print_r($dep);
+            for ($x = 0; $x < count($dependencies); $x++) {
+                if ($x == $i) {
+                    continue;
+                }
+                echo '<br> i: '.$i.' - x: '.$x.' - '.$dependencies[$i];
+            }
+        }
+    }
+
+    /**
+     * Get dependencies
+     *
+     * @return array
+     */
+    public function getDependencies()
+    {
+        $aux = [];
+        foreach ($this->resource as $structure) {
+            if (count($structure) == 1) {
+                $aux[] = $structure;
+            }
+        }
+
+        return $aux;
+    }
+
     /**
      * Check if exists conflicts in the existent data
      *  and return them in case of true
@@ -74,23 +107,4 @@ class RuleSet
 
         return $aux;
     }
-
-    /**
-     * @param $resorce
-     * @return mixed
-     */
-    public function __get($data)
-    {
-        return $this->$data;
-    }
-
-    /**
-     * @param $data
-     * @param $value
-     */
-    public function __set($data, $value)
-    {
-        $this->$data = $value;
-    }
-
 }
