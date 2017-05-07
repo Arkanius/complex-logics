@@ -34,15 +34,24 @@ class RuleSet
         }
     }
 
+    /**
+     * Check if Dependency set is coherent depending on conflict set
+     *
+     * @param array $dependencies
+     * @param array $conflicts
+     * @return bool
+     */
     public function checkCoherence($dependencies = [], $conflicts = [])
     {
-        $b = [['A', 'B', 'C'], ['D', 'E']];
-
-        foreach ($dependencies as $d) {
-            if (!empty(array_intersect($conflicts, $d))) {
-                echo "Encontrado<br><br>";
+        foreach ($dependencies as $dependencyConjunct) {
+            foreach ($conflicts as $conflictsConjuncts) {
+                if (count(array_intersect($conflictsConjuncts, $dependencyConjunct)) == 2) {
+                    return false;
+                }
             }
         }
+
+        return true;
     }
 
     /**

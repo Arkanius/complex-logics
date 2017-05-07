@@ -14,16 +14,10 @@ $s->addConflict('A', 'B');
 echo '<br> Rule Set 1: ';
 $s->isCoherent();*/
 
-$b = [['A', 'B', 'C']];
+$b = [['A', 'B']];
 
-$conflicts = [['B', 'D'], ['B', 'E']];
-foreach ($b as $dependencyConjunct) {
-    foreach ($conflicts as $conflictsConjuncts) {
-        if (count(array_intersect($conflictsConjuncts, $dependencyConjunct)) == 2) {
-            die('incoerente');
-        } else {
-            echo "<br>Coerente<br>";
-        }
-    }
-}
+$conflicts = [['A', 'B']];
+
+echo $s->checkCoherence($b, $conflicts) === true ? 'Coerente' : 'Incoerente';
+
 //echo '<pre>';print_r($s->__get('resource'));
