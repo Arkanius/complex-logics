@@ -29,9 +29,7 @@ class RuleSet
             return true;
         }
 
-        foreach ($this->resource as $structure) {
-            echo '<br>size: '.count($structure). ' - ';print_r($structure);
-        }
+        return $this->checkCoherence($this->getDependenciesSet(), $conflicts);
     }
 
     /**
@@ -50,7 +48,6 @@ class RuleSet
                 }
             }
         }
-
         return true;
     }
 
@@ -118,7 +115,7 @@ class RuleSet
         $aux = [];
         foreach ($this->resource as $structure) {
             if (count($structure) == 2) {
-                $aux[] = $structure;
+                $aux[] = array_keys($structure);
             }
         }
 

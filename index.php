@@ -14,13 +14,15 @@ $s->addDep('A', 'B');
 $s->addDep('A', 'C');
 //$s->addDep('C', 'D');
 //$s->addDep('C', 'A');
-//$s->addDep('D', 'B');
+//$s->addDep('D', 'E');
 //$s->addDep('A', 'F');
-$s->addConflict('A', 'C');
-//$s->isCoherent();
+$s->addConflict('B', 'D');
+$s->addConflict('B', 'E');
 
+echo $s->isCoherent() === true ? 'Coerente' : 'Incoerente';
 
-echo '<pre>';print_r($s->getDependenciesSet());
+/*echo '<pre>';print_r($s->getDependenciesSet());
 echo '<br><br><br>';
-$conflicts = [['B', 'D'], ['B', 'E']];
-echo $s->checkCoherence($s->getDependenciesSet(), $conflicts) === true ? 'Coerente' : 'Incoerente';
+$conflicts = [['A', 'C']];
+echo $s->checkCoherence($s->getDependenciesSet(), $conflicts) === true ? 'Coerente' : 'Incoerente';*/
+
