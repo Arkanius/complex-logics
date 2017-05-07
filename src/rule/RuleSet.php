@@ -84,6 +84,12 @@ class RuleSet
         }
         $result = [];
         $dependencySet  = array_unique($dependencySet);
+
+        if (empty($dependencySet)) {
+            array_push($result, $arAux);
+            return $result;
+        }
+
         array_push($result, array_diff(array_unique($aux), $dependencySet), $dependencySet);
         return $result;
     }
