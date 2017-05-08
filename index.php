@@ -10,10 +10,9 @@ use App\rule\RuleSet;
 $s = new RuleSet();
 
 $s->addDep('A', 'B');
-//$s->addDep('B', 'C');
 $s->addConflict('A', 'B');
 
-//echo $s->isCoherent() === true ? 'Coerente' : 'Incoerente';
+echo $s->isCoherent() === true ? 'Coerente' : 'Incoerente';
 
 /*echo '<pre>';print_r($s->getDependenciesSet());
 echo '<br><br><br>';
