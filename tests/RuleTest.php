@@ -1,6 +1,7 @@
 <?php
 
 use App\rule\RuleSet;
+use App\options\Options;
 
 class RuleTest extends PHPUnit_Framework_TestCase
 {
@@ -53,7 +54,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->isCoherent());
     }
 
-    public function testExclusiveAB_BC_CA_DE() //TODO: CONTINUAR
+    public function testExclusiveAB_BC_CA_DE()
     {
         $s = new RuleSet();
         $s->addDep('A', 'B');
@@ -65,16 +66,19 @@ class RuleTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($s->isCoherent());
     }
 
-    public function testAB_BC_Toggle() //TODO: CONTINUAR
+    public function testAB_BC_Toggle()
     {
         $s = new RuleSet();
         $s->addDep('A', 'B');
         $s->addDep('B', 'C');
 
+        $opts = new Options($s);
+        $opts->toggle('C');
+
         $this->assertTrue($s->isCoherent());
     }
 
-    public function testAB_AC() //TODO: CONTINUAR
+    public function testAB_AC()
     {
         $s = new RuleSet();
         $s->addDep('A', 'B');

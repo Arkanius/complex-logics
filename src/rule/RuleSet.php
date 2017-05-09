@@ -76,10 +76,6 @@ class RuleSet
                 }
                 array_push($aux, key($dep), $dep[key($dep)],
                     key($dependencies[$x]), $dependencies[$x][key($dependencies[$x])]);
-
-/*                echo '<br> i: '.$i.' - x: '.$x.' - '
-                    .key($dep).','.$dep[key($dep)].
-                    ' - '.key($dependencies[$x]).','.$dependencies[$x][key($dependencies[$x])];*/
             }
         }
         $result = [];

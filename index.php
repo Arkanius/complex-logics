@@ -6,16 +6,15 @@ error_reporting(E_ERROR);
 require 'vendor/autoload.php';
 
 use App\rule\RuleSet;
+use App\options\Options;
 
 $s = new RuleSet();
 
 $s->addDep('A', 'B');
-$s->addConflict('A', 'B');
-
+$s->addDep('B', 'C');
 echo $s->isCoherent() === true ? 'Coerente' : 'Incoerente';
 
-/*echo '<pre>';print_r($s->getDependenciesSet());
-echo '<br><br><br>';
-$conflicts = [['A', 'B']];
-echo $s->checkCoherence($s->getDependenciesSet(), $conflicts) === true ? 'Coerente' : 'Incoerente';*/
+$op = new Options($s);
+echo '<pre><br><br>';
+print_r($op->toggle('C'));
 
